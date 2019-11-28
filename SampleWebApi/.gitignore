@@ -1,0 +1,4 @@
+/.vs
+SampleWebApi/bin/
+SampleWebApi/obj/
+SampleWebApi/wwwroot/
