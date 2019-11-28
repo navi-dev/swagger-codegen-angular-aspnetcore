@@ -1,0 +1,8 @@
+
+Command
+java -jar "<path-of-jar-file>" generate -i <url-of-swagger-spec-file> -l typescript-angular -o <relative-output-path> -c <path-of-option-file>
+
+Please note here paths are relative path from the location you are executing the command.
+
+Example command
+java -jar "Helper/swagger-codegen-cli-2.4.10.jar" generate -i http://localhost:65099/swagger/DemoAPI/swagger.json -l typescript-angular -o ClientGeneratedForSwaggerCodegen -c Helper/options.json
