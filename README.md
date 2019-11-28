@@ -1,6 +1,8 @@
 # swagger-codegen-angular-aspnetcore
 
-This repo contains the example, it shows how you can use the swagger codegen in your application. 
+This repo contains the swagger codegen example
+
+This document will help you to rplicate the same in your project.
 
 ## Install Swagger.
 
