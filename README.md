@@ -15,28 +15,28 @@ Swashbuckle.AspNetCore.SwaggerUi  4.0.1
 In ConfigureServices method paste the following and change the name
 
 ```c#
-	services.AddSwaggerGen(c =>
+services.AddSwaggerGen(c =>
+{
+	c.SwaggerDoc("DemoAPI", new Swashbuckle.AspNetCore.Swagger.Info()
 	{
-		c.SwaggerDoc("DemoAPI", new Swashbuckle.AspNetCore.Swagger.Info()
-		{
-			Title = "Demo API",
-			Description = "Purely designed for demonstration",
-			Version = "v1"
-		});
+		Title = "Demo API",
+		Description = "Purely designed for demonstration",
+		Version = "v1"
 	});
+});
 ```
 	
 In Configure method paste the following
 	 
 ```c#
-	// Enable middleware to serve generated Swagger as a JSON endpoint.
-	app.UseSwagger();
-	
-	app.UseSwaggerUI(c =>
-	{
-		c.SwaggerEndpoint("/swagger/DemoAPI/swagger.json", "Demo API");
-		c.RoutePrefix = string.Empty;
-	});
+// Enable middleware to serve generated Swagger as a JSON endpoint.
+app.UseSwagger();
+
+app.UseSwaggerUI(c =>
+{
+	c.SwaggerEndpoint("/swagger/DemoAPI/swagger.json", "Demo API");
+	c.RoutePrefix = string.Empty;
+});
 ```
 ## Enable Cors
 #### Goto startup.cs file
@@ -49,13 +49,13 @@ In ConfigureServices method paste the following and change the name
 
 ```C#
 services.AddCors(options =>
+{
+	options.AddPolicy(MyAllowSpecificOrigins,
+	builder =>
 	{
-		options.AddPolicy(MyAllowSpecificOrigins,
-		builder =>
-		{
-			builder.WithOrigins("http://example.com");
-		});
+		builder.WithOrigins("http://example.com");
 	});
+});
 ```
 
 In Configure method paste the following
@@ -133,51 +133,51 @@ Open app.module.ts file in your angular application.
 ```
 Finally your app module should like 
 ``` typescript
-		import { BrowserModule } from '@angular/platform-browser';
-		import { NgModule } from '@angular/core';
-		import { HttpClientModule } from '@angular/common/http';
-		import { ApiModule, BASE_PATH } from 'sample-webapi';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { ApiModule, BASE_PATH } from 'sample-webapi';
 
-		import { AppRoutingModule } from './app-routing.module';
-		import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 
-		@NgModule({
-			declarations: [
-				AppComponent,
-			],
-			imports: [
-				BrowserModule,
-				AppRoutingModule,
-				HttpClientModule,
-				ApiModule,
-			],
-			providers: [{ provide: BASE_PATH, useValue: 'http://localhost:65099' }],
-			bootstrap: [AppComponent]
-		})
-		export class AppModule { }
+@NgModule({
+	declarations: [
+		AppComponent,
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		HttpClientModule,
+		ApiModule,
+	],
+	providers: [{ provide: BASE_PATH, useValue: 'http://localhost:65099' }],
+	bootstrap: [AppComponent]
+})
+export class AppModule { }
 		
 ```
 Now you are good to use the User API in your agnular application. Below is one example 
 
 ```typescript 
-   	import { Component, OnInit } from '@angular/core';
-	import { UserService } from 'sample-webapi';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from 'sample-webapi';
 
-	@Component({
-		selector: 'app-root',
-		templateUrl: './app.component.html',
-		styleUrls: ['./app.component.css']
-	})
-	export class AppComponent implements OnInit {
-		title = 'SampleClientApp';
+@Component({
+selector: 'app-root',
+templateUrl: './app.component.html',
+styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+title = 'SampleClientApp';
 
-		constructor(private userService: UserService) {
-		}
+constructor(private userService: UserService) {
+}
 
-		ngOnInit(): void {
-			this.userService.getUsers().subscribe(elem => {
-				console.log(elem);
-			});
-		}
-	}
+ngOnInit(): void {
+this.userService.getUsers().subscribe(elem => {
+	console.log(elem);
+});
+}
+}
 ```
