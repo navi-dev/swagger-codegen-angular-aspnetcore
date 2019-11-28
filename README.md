@@ -122,14 +122,17 @@ Start using the client in your application
 
 Open app.module.ts file in your angular application.
 1. Import the following
-2. Import { HttpClientModule } from '@angular/common/http';
+```typescript
+     Import { HttpClientModule } from '@angular/common/http';
+     Import { ApiModule, BASE_PATH } from 'sample-webapi';
+```
+2. Add HttpClientModule, ApiModule, in import section	
+3.  Add following in the provider, you need to change url of your api application.
+```typescript
+{ provide: BASE_PATH, useValue: 'http://localhost:65099' }
+```
+Finally your app module should like 
 ``` typescript
-import { ApiModule, BASE_PATH } from 'sample-webapi';
-	* Add HttpClientModule, ApiModule, in import section	
-	* Add following in the provider, you need to change url of your api application.
-		{ provide: BASE_PATH, useValue: 'http://localhost:65099' }
-	
-	Finally your app module should like 
 		import { BrowserModule } from '@angular/platform-browser';
 		import { NgModule } from '@angular/core';
 		import { HttpClientModule } from '@angular/common/http';
@@ -154,27 +157,27 @@ import { ApiModule, BASE_PATH } from 'sample-webapi';
 		export class AppModule { }
 		
 ```
-	Now you are good to use the User API in your agnular application. Below is one example 
+Now you are good to use the User API in your agnular application. Below is one example 
 
 ```typescript 
-   import { Component, OnInit } from '@angular/core';
-		import { UserService } from 'sample-webapi';
+   	import { Component, OnInit } from '@angular/core';
+	import { UserService } from 'sample-webapi';
 
-		@Component({
-			selector: 'app-root',
-			templateUrl: './app.component.html',
-			styleUrls: ['./app.component.css']
-		})
-		export class AppComponent implements OnInit {
-			title = 'SampleClientApp';
+	@Component({
+		selector: 'app-root',
+		templateUrl: './app.component.html',
+		styleUrls: ['./app.component.css']
+	})
+	export class AppComponent implements OnInit {
+		title = 'SampleClientApp';
 
-			constructor(private userService: UserService) {
-			}
-
-			ngOnInit(): void {
-				this.userService.getUsers().subscribe(elem => {
-					console.log(elem);
-				});
-			}
+		constructor(private userService: UserService) {
 		}
+
+		ngOnInit(): void {
+			this.userService.getUsers().subscribe(elem => {
+				console.log(elem);
+			});
+		}
+	}
 ```
