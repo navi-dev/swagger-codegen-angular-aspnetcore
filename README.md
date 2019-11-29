@@ -2,7 +2,7 @@
 
 This repo contains the swagger codegen example
 
-This document will help you to rplicate the same in your project.
+This document will help you to replicate the same in your project.
 
 ## Install Swagger.
 
